@@ -23,7 +23,9 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "rootDirs": ["src"],
+    "baseUrl": "src"
   },
-  "include": ["src"]
+  "include": ["src", "Typings"]
 }

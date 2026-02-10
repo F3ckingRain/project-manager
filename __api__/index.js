@@ -1,4 +1,8 @@
-const express = require('express');
-const app = express();
+import express from 'express'
+import { authRouter } from './Auth/index.js'
 
-app.set('port', 8080);
+const app = express()
+
+app.use('/auth', authRouter);
+
+app.listen(8080);
