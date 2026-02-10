@@ -2,10 +2,10 @@ import store from '../Store';
 import { shallowEqual, type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 /** Типизированный селектор приложения. */
-export const useAppSelector: TypedUseSelectorHook<typeof store> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 
 /** Типизированный селектор приложения с глубоким сравнением. */
-export function useAppShallowSelector<R = unknown> (selector: (state: typeof store) => R): R {
+export function useAppShallowSelector<R = unknown> (selector: (state: ReturnType<typeof store.getState>) => R): R {
     return useAppSelector<R>(selector, shallowEqual);
 }
 

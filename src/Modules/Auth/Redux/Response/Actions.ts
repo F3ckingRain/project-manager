@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AUTH_MODULE_NAMESPACE } from "../../Consts";
-import { isAuthSelector } from "./Selectors";
+import {authStateSelector} from "../State/Selectors";
 import type { IThunkApiConfig } from "Store";
 
 /** Экшен проверки токена авторизации. */
-export const checkTokenExpire = createAsyncThunk<null, Optional<string>, IThunkApiConfig>(
+export const checkTokenExpireAction = createAsyncThunk<null, Nullable<string>, IThunkApiConfig>(
     `${AUTH_MODULE_NAMESPACE}__check_token_expire`,
     async (token, { rejectWithValue }) => {
         try {
@@ -21,7 +21,7 @@ export const checkTokenExpire = createAsyncThunk<null, Optional<string>, IThunkA
     },
     {
         condition: (token, { getState }) => {
-            const isAuth = isAuthSelector(getState())
+            const isAuth = authStateSelector('isAuth')(getState())
 
             return !!token && !isAuth
         }
