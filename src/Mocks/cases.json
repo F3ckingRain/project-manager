@@ -1,0 +1,13 @@
+
+{
+  "id": "TC-101",
+  "title": "Авторизация пользователя",
+  "precondition": "Пользователь не авторизован",
+  "steps": "1. Ввести логин\n2. Ввести пароль\n3. Нажать войти",
+  "expectedResult": "Переход на главную страницу",
+  "status": "Ready",
+  "history": [
+    {"date": "2023-10-01", "action": "Created by Admin"},
+    {"date": "2023-10-05", "action": "Updated status to Ready"}
+  ]
+}

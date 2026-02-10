@@ -1,0 +1,52 @@
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f7f6;
+  font-family: sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px
+;
+  div {
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &:hover { background: #34495e; }
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+.authPage {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2c3e50;
+  .card {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.itemCard {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}

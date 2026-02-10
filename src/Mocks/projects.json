@@ -1,0 +1,17 @@
+
+{
+  "projects": [
+    { "id": 1, "name": "E-commerce App", "client": "Global Retail", "lead": "Ivanov I." },
+    { "id": 2, "name": "Banking System", "client": "FinTech Ltd", "lead": "Petrov P." }
+  ],
+  "cases": [
+    {
+      "id": "TC-001",
+      "projectId": 1,
+      "title": "User Login",
+      "status": "Ready",
+      "steps": "1. Enter email\n2. Enter password\n3. Click Login",
+      "expected": "Dashboard is visible"
+    }
+  ]
+}
