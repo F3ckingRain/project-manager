@@ -1,0 +1,13 @@
+.authForm {
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+
+    box-sizing: border-box;
+
+    border: 2px solid rgba($color: #3a3535, $alpha: 1.0);
+    border-radius: 10px;
+}

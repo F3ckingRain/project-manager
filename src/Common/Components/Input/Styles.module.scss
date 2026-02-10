@@ -1,0 +1,19 @@
+.label {
+    letter-spacing: 0.07rem;
+}
+
+.input {
+    margin-left: 4px;   
+    padding: 8px 12px;
+
+    border: 1px solid rgba($color: #999999, $alpha: 1.0);
+    border-radius: 8px;
+
+    outline: none;
+
+    background-color: rgba($color: #f8f8f8, $alpha: 1);
+
+    &:focus-visible {
+        background-color: rgba($color: #f8f8f8, $alpha: 0.6);
+    }
+}

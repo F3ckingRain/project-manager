@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { resetAuthAction } from "../../../Auth/Actions";
 import type { IAuthForm } from "../../../Auth/Models";
 import { changeFieldAction } from "./Actions";
-import {set} from 'lodash'
+import { set } from 'lodash'
 
 /** Тип редакс-стейта данных формы авторизации. */
 type TAuthForm = Partial<IAuthForm>
@@ -10,7 +10,6 @@ type TAuthForm = Partial<IAuthForm>
 /** Начальное состояние формы. */
 const initialState: TAuthForm = {
     authType: 'signIn',
-    isAuth: false
 };
 
 /** Редьюсер данных модуля авторизации. */

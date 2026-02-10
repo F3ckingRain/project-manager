@@ -19,5 +19,9 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
-  },
+    rules: {
+         "block-spacing": ["error", "always"],
+         "object-curly-spacing": ["error", "always"]
+    }
+  }
 ])

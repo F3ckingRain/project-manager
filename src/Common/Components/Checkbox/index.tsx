@@ -1,3 +1,4 @@
+import styles from './Styles.module.scss'
 
 interface IProps {
     /** Значение чекбокса. */
@@ -22,8 +23,9 @@ export function Checkbox ({ value = false, onChange, label }: IProps): React.JSX
     }
 
     return (
-        <label>
+        <label className={styles.label}>
             <input 
+            className={styles.checkBox}
              type="checkbox" 
              checked={value}
               onChange={handleChange} 

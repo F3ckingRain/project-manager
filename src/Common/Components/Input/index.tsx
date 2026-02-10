@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type HTMLProps } from "react";
+import styles from './Styles.module.scss'
 
 interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'onBlur' | 'label' | 'value'> {
     /** Значение поля. */
@@ -7,10 +8,12 @@ interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'onBlur' | 'label' | 
     onBlur: (newValue: string) => void;
     /** Лейбл. */
     label: React.ReactNode;
+    /** Плейсхолдер. */
+    placeholder?: string;
 }
 
 /** Компонент "Инпут". */
-export function Input ({ value, onBlur, label, type = 'text' }: IProps): React.JSX.Element {
+export function Input ({ value, onBlur, label, type = 'text', placeholder, ...props }: IProps): React.JSX.Element {
     const [state, setState] = useState<string>(value || '')
 
     /** 
@@ -28,15 +31,18 @@ export function Input ({ value, onBlur, label, type = 'text' }: IProps): React.J
     }
 
     return (
-        <label>
+        <label className={styles.label}>
+            {label}
+
             <input 
+            className={styles.input}
                 type={type}
                  value={state} 
                  onChange={handleChange}
                   onBlur={handleBlur} 
+                  placeholder={placeholder}
+                  {...props}
                   />
-
-            {label}
         </label>
     )
 }

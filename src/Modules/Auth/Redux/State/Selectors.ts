@@ -8,3 +8,8 @@ export function authStateSelector <T extends keyof IAuthForm>(formKey: T) {
         return get(auth.state, formKey)
     }
 }
+
+/** Селектор данных формы авторизации. */
+export function authFormStateSelector ({ auth }: TReduxState): Partial<IAuthForm> {
+    return auth.state
+}

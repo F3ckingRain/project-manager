@@ -5,10 +5,10 @@ import { changeFieldAction } from "Modules/Auth/Redux/State/Actions";
 import { authStateSelector } from "Modules/Auth/Redux/State/Selectors";
 import i18n from "Translations";
 
-/** Поле "Пароль". */
-export function Password (): React.JSX.Element {
+/** Поле "Логин". */
+export function Login (): React.JSX.Element {
     const dispatch = useAppDispatch();
-    const fieldKey: keyof IAuthForm = 'password'
+    const fieldKey: keyof IAuthForm = 'login'
     const value = useAppSelector(authStateSelector(fieldKey))
 
     /**
@@ -24,7 +24,6 @@ export function Password (): React.JSX.Element {
         <Input 
             value={value}
             onBlur={handleBlur}
-            type="password"
             label={i18n.t(fieldKey)}
         />
     )

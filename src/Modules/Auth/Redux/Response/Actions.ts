@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AUTH_MODULE_NAMESPACE } from "../../Consts";
-import {authStateSelector} from "../State/Selectors";
+import { authFormStateSelector } from "../State/Selectors";
 import type { IThunkApiConfig } from "Store";
+import { isAuthSelector } from "Redux/Settings/Selectors";
 
 /** Экшен проверки токена авторизации. */
 export const checkTokenExpireAction = createAsyncThunk<null, Nullable<string>, IThunkApiConfig>(
@@ -21,9 +22,59 @@ export const checkTokenExpireAction = createAsyncThunk<null, Nullable<string>, I
     },
     {
         condition: (token, { getState }) => {
-            const isAuth = authStateSelector('isAuth')(getState())
+            const isAuth = isAuthSelector(getState())
 
             return !!token && !isAuth
+        }
+    }
+)
+
+/** Экшен входа в учётную запись. */
+export const signInAction = createAsyncThunk<string, never, IThunkApiConfig>(
+    `${AUTH_MODULE_NAMESPACE}__sign_in`,
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const { login, password } = authFormStateSelector(getState())
+
+            const body = JSON.stringify({ login, password })
+
+            const response = await (await fetch('api/auth/sign-in', { method: "post", body })).json()
+
+            return response?.token || ""
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    },
+    {
+        condition: (_, { getState }) => {
+            const { login, password } = authFormStateSelector(getState())
+
+            return !!login && !!password
+        }
+    }
+)
+
+/** Экшен создания учётной записи. */
+export const signUpAction = createAsyncThunk<string, never, IThunkApiConfig>(
+    `${AUTH_MODULE_NAMESPACE}__sign_up`,
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const { login, password } = authFormStateSelector(getState())
+
+            const body = JSON.stringify({ login, password })
+
+            const response = await (await fetch('api/auth/sign-up', { method: "post", body })).json()
+
+            return response?.token || ""
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    },
+    {
+        condition: (_, { getState }) => {
+            const { login, password } = authFormStateSelector(getState())
+
+            return !!login && !!password
         }
     }
 )

@@ -3,6 +3,7 @@ import { useCheckAuthToken } from "./Hooks"
 import { resetAuthAction } from "./Actions";
 import { useAppDispatch } from "../../Hooks/Redux";
 import { AuthForm } from "./Form";
+import styles from './Styles.module.scss'
 
 /** Страница авторизации. */
 export function AuthPage (): React.JSX.Element {
@@ -17,7 +18,7 @@ export function AuthPage (): React.JSX.Element {
     }, [dispatch])
     
     return (
-        <div>
+        <div className={styles.authPage}>
             <AuthForm />
         </div>
     )
