@@ -20,7 +20,7 @@ export function AppLayout (): React.JSX.Element {
         <Routes>
             <Route element={<AuthPage />} index />
 
-            <Route element={<TablePage />} path={TABLE_PAGE_PATH} />
+            <Route element={<TablePage />} path={`${TABLE_PAGE_PATH}/*`} />
 
             <Route element={<FormPage />} path={FORM_PAGE_PATH} />
         </Routes>

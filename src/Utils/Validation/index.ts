@@ -1,3 +1,4 @@
+import { map } from "lodash";
 import type { ZodType } from "zod";
 
 /** 
@@ -8,11 +9,8 @@ import type { ZodType } from "zod";
  */
 export function validateZodSchema (schema: ZodType, value: unknown): Optional<string[]> {
     const res = schema.safeParse(value)
-    console.log(res)
 
     if (!res.success) {
-        console.log(res)
+        return map(res.error.issues, ({ message }) => message)
     } 
-
-    return []
 }

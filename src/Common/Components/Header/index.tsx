@@ -6,13 +6,20 @@ import { isAuthSelector } from "Redux/Settings/Selectors";
 import { LogOutIcon } from 'lucide-react'
 import { changeIsAuthAction } from "Redux/Settings/Actions";
 import { logOutAction } from "Modules/Auth/Redux/Response/Actions";
+import logoPath from 'Common/Assets/CompanyLogo.jpg'
+import { useEffect } from "react";
 
 /** Шапка приложения. */
 export function Header (): React.JSX.Element {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const isAuth = useAppSelector(isAuthSelector)
-    const { i18n } = useTranslation()
+    const isAuth = useAppSelector(isAuthSelector);
+    const { t, i18n } = useTranslation();
+
+    // Динамическое изменение заголовка страницы.
+    useEffect(() => {
+        window.document.title = t('projectTitle');
+    }, [i18n.language, t])
 
     /**
      * Обработчик изменения языка приложения.
@@ -20,7 +27,7 @@ export function Header (): React.JSX.Element {
      * @param lang Язык.
      */
     const handleChangeLang = async (lang: string) => {
-        await i18n.changeLanguage(lang)
+        await i18n.changeLanguage(lang);
     }
 
     /** Обработчик выхода из сессии. */
@@ -37,6 +44,12 @@ export function Header (): React.JSX.Element {
 
     return (
         <header className={styles.header}>
+            <div className={styles.header__main}>
+                <img src={logoPath} className={styles.header__logo}/>
+
+                <div className={styles.header__title}>{t('projectTitle')}</div>
+            </div>
+
             <div className={styles.languages}>
                 <button 
                     className={styles.languages__button}

@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type HTMLProps } from "react";
 import styles from './Styles.module.scss'
+import cx from 'classnames'
+import { EyeIcon, EyeClosedIcon } from 'lucide-react'
 
 interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'onBlur' | 'label' | 'value'> {
     /** Значение поля. */
@@ -14,7 +16,8 @@ interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'onBlur' | 'label' | 
 
 /** Компонент "Инпут". */
 export function Input ({ value, onBlur, label, type = 'text', placeholder, ...props }: IProps): React.JSX.Element {
-    const [state, setState] = useState<string>(value || '')
+    const [state, setState] = useState<string>(value || '');
+    const [visibleType, setVisibleType] = useState(type);
 
     /** 
      * Обработчик изменения значения в инпуте.
@@ -22,12 +25,17 @@ export function Input ({ value, onBlur, label, type = 'text', placeholder, ...pr
      * @param event Событие изменения.
      */
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        setState(event.target.value)
+        setState(event.target.value);
     }
 
     /** Обработчик потери фокуса. */
     const handleBlur = (): void => {
-        onBlur(state)
+        onBlur(state);
+    }
+
+    /** Обработчик переключения видимости символов в пароле. */
+    const handleToggleType = (): void => {
+        setVisibleType((prevState) => prevState === 'password' ? 'text' : 'password')
     }
 
     return (
@@ -35,14 +43,20 @@ export function Input ({ value, onBlur, label, type = 'text', placeholder, ...pr
             {label}
 
             <input 
-            className={styles.input}
-                type={type}
-                 value={state} 
-                 onChange={handleChange}
-                  onBlur={handleBlur} 
-                  placeholder={placeholder}
-                  {...props}
-                  />
+                className={styles.input}
+                type={visibleType}
+                value={state} 
+                onChange={handleChange}
+                onBlur={handleBlur} 
+                placeholder={placeholder}
+                {...props}
+            />
+
+            {type === 'password' ? (
+                <button className={cx(styles.peek, styles[visibleType])} onClick={handleToggleType}>
+                    {visibleType === 'password' ? <EyeClosedIcon /> : <EyeIcon />}
+                </button>
+            ) : null}
         </label>
     )
 }

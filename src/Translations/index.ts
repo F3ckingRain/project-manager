@@ -12,22 +12,30 @@ i18n
       password: 'Password',
       projects: "Projects", 
       cases: "Test Cases",
-      keepSession: 'Keep Session',
+      keepSession: 'Remember me',
       signIn: "Sign In",
       signUp: "Sign Up",
       logOut: "Logout",
-      create: "Create"
+      create: "Create",
+      undo: "Undo",
+      noAccount: "Have no account?",
+      projectTitle: "Test Management System",
+      forgotPassword: "Forgot password?"
        } },
     ru: { translation: { 
-      login: 'Логин',
+      login: 'Логин или Эл. почта',
       password: 'Пароль',
       projects: "Проекты", 
       cases: "Тест-кейсы", 
-      keepSession: 'Оставаться в сети',
+      keepSession: 'Запомнить меня',
       signIn: "Войти",
       signUp: "Зарегистрироваться",
       logOut: "Выйти",
-      create: "Создать"
+      create: "Создать",
+      undo: "Назад",
+      noAccount: "Нет аккаунта?",
+      projectTitle: "Система учёта тест-кейсов",
+      forgotPassword: "Забыли пароль?"
     } }
   },
   lng: "ru",

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "Hooks/Redux";
 import type { IAuthForm } from "Modules/Auth/Models";
 import { changeFieldAction } from "Modules/Auth/Redux/State/Actions";
 import { authStateSelector } from "Modules/Auth/Redux/State/Selectors";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 /** Чекбокс "Оставаться в сети". */
@@ -12,6 +13,11 @@ export function KeepSession (): React.JSX.Element {
         const value = useAppSelector(authStateSelector(fieldKey))
         const { t } = useTranslation()
     
+        // Сброс данных поля при размонтировании.
+        useEffect(() => () => {
+            dispatch(changeFieldAction({ key: fieldKey, value: undefined }))
+        }, [dispatch])
+
         /**
          * Обработчик потери фокуса полем.
          * 

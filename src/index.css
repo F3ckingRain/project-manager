@@ -12,7 +12,7 @@
   overflow-x: hidden;
 }
 
-label, button, input {
+label, button, input, a {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     font-weight: 500;

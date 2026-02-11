@@ -30,3 +30,7 @@ authRouter.use('/check-token-expired', (req, res) => {
         res.status(401).send('session expired')
     }
 })
+
+authRouter.use('/restore-password', (_, res) => {
+    res.status(200).send('password changed')
+})
