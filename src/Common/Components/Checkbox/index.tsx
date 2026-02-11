@@ -25,11 +25,13 @@ export function Checkbox ({ value = false, onChange, label }: IProps): React.JSX
     return (
         <label className={styles.label}>
             <input 
-            className={styles.checkBox}
-             type="checkbox" 
-             checked={value}
-              onChange={handleChange} 
+                className={styles.checkBox}
+                type="checkbox" 
+                checked={value}
+                onChange={handleChange} 
             />
+
+            <span className={styles.checkMark} />
 
             {label}
         </label>

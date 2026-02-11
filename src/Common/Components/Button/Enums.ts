@@ -1,5 +1,7 @@
 /** Тип кнопки. */
 export enum EButtonType {
-    /** Кнопка события отправки формы. */
-    SUBMIT = 'SUBMIT',
+    /** Основной стиль кнопки. */
+    GENERAL = 'GENERAL',
+    /** Второстепенный стиль кнопки. */
+    SECONDARY = 'SECONDARY',
 }

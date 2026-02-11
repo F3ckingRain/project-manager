@@ -3,13 +3,14 @@ import { useAppDispatch, useAppSelector } from "Hooks/Redux";
 import type { IAuthForm } from "Modules/Auth/Models";
 import { changeFieldAction } from "Modules/Auth/Redux/State/Actions";
 import { authStateSelector } from "Modules/Auth/Redux/State/Selectors";
-import i18n from "Translations";
+import { useTranslation } from "react-i18next";
 
 /** Поле "Пароль". */
 export function Password (): React.JSX.Element {
     const dispatch = useAppDispatch();
     const fieldKey: keyof IAuthForm = 'password'
     const value = useAppSelector(authStateSelector(fieldKey))
+    const { t } = useTranslation()
 
     /**
      * Обработчик потери фокуса полем.
@@ -25,7 +26,7 @@ export function Password (): React.JSX.Element {
             value={value}
             onBlur={handleBlur}
             type="password"
-            label={i18n.t(fieldKey)}
+            label={t(fieldKey)}
         />
     )
 }

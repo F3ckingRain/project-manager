@@ -1,15 +1,19 @@
 import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-i18n.use(initReactI18next).init({
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
   resources: {
     en: { translation: { 
-            login: 'Login',
+      login: 'Login',
       password: 'Password',
       projects: "Projects", 
       cases: "Test Cases",
-       keepSession: 'Keep Session',
-             signIn: "Sign In",
+      keepSession: 'Keep Session',
+      signIn: "Sign In",
       signUp: "Sign Up",
       logOut: "Logout",
       create: "Create"
@@ -27,7 +31,7 @@ i18n.use(initReactI18next).init({
     } }
   },
   lng: "ru",
-  fallbackLng: "en"
+  fallbackLng: "en",
 });
 
 export default i18n;

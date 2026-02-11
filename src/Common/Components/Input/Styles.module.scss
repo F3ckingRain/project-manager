@@ -1,4 +1,9 @@
 .label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
     letter-spacing: 0.07rem;
 }
 
@@ -6,14 +11,27 @@
     margin-left: 4px;   
     padding: 8px 12px;
 
-    border: 1px solid rgba($color: #999999, $alpha: 1.0);
+    color: #2D3436;
+
+    border: 1px solid transparent;
     border-radius: 8px;
 
     outline: none;
 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+
     background-color: rgba($color: #f8f8f8, $alpha: 1);
+
+    transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus-visible {
         background-color: rgba($color: #f8f8f8, $alpha: 0.6);
+        border-color: #4A69BD;
+        background-color: #FFFFFF;
+        box-shadow: 0 4px 12px rgba(74, 105, 189, 0.1);
+    }
+
+    &::placeholder {
+        color: #95A5A6;
     }
 }

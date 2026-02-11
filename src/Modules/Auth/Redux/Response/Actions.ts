@@ -19,13 +19,6 @@ export const checkTokenExpireAction = createAsyncThunk<null, Nullable<string>, I
         } catch(error) {
             return rejectWithValue(error)
         }
-    },
-    {
-        condition: (token, { getState }) => {
-            const isAuth = isAuthSelector(getState())
-
-            return !!token && !isAuth
-        }
     }
 )
 
@@ -38,7 +31,7 @@ export const signInAction = createAsyncThunk<string, never, IThunkApiConfig>(
 
             const body = JSON.stringify({ login, password })
 
-            const response = await (await fetch('api/auth/sign-in', { method: "post", body })).json()
+            const response = await fetch('api/auth/sign-in', { method: "post", body }).then(res => res.json())
 
             return response?.token || ""
         } catch (error) {
@@ -63,7 +56,7 @@ export const signUpAction = createAsyncThunk<string, never, IThunkApiConfig>(
 
             const body = JSON.stringify({ login, password })
 
-            const response = await (await fetch('api/auth/sign-up', { method: "post", body })).json()
+            const response = await fetch('api/auth/sign-in', { method: "post", body }).then(res => res.json())
 
             return response?.token || ""
         } catch (error) {
@@ -75,6 +68,25 @@ export const signUpAction = createAsyncThunk<string, never, IThunkApiConfig>(
             const { login, password } = authFormStateSelector(getState())
 
             return !!login && !!password
+        }
+    }
+)
+
+/** Экшен выхода из сессии. */
+export const logOutAction = createAsyncThunk<void, never, IThunkApiConfig>(
+    `${AUTH_MODULE_NAMESPACE}__sign_up`,
+    async (_, { rejectWithValue }) => {
+        try {
+            await fetch('api/auth/logout')
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    },
+    {
+        condition: (_, { getState }) => {
+            const isAuth = isAuthSelector(getState())
+
+            return !!isAuth
         }
     }
 )

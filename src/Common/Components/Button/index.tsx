@@ -15,7 +15,7 @@ interface IProps extends Omit<HTMLProps<HTMLButtonElement>, 'type'> {
 /** Компонент "Кнопка". */
 export function Button ({ type, children, onClick }: IProps): React.JSX.Element {
     return (
-        <button  className={ cx(styles.button, type) } onClick={ onClick }>
+        <button  className={ cx(styles.button, styles[type]) } onClick={ onClick }>
             {children}
         </button>
     )

@@ -2,19 +2,22 @@ import { Button } from "Common/Components/Button";
 import { KeepSession } from "./Fields/KeepSession";
 import { Login } from "./Fields/Login";
 import { Password } from "./Fields/Password";
-import i18n from "Translations";
 import styles from './Styles.module.scss'
 import { EButtonType } from "Common/Components/Button/Enums";
-import { useAppDispatch } from "Hooks/Redux";
+import { useAppDispatch, useAppSelector } from "Hooks/Redux";
 import { signInAction, signUpAction } from "../Redux/Response/Actions";
 import { changeIsAuthAction } from "Redux/Settings/Actions";
 import { useNavigate } from "react-router-dom";
 import { TABLE_PAGE_PATH } from "Modules/Table/Consts";
+import { authStateSelector } from "../Redux/State/Selectors";
+import { useTranslation } from "react-i18next";
 
 /** Форма авторизации. */
 export function AuthForm (): React.JSX.Element {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const keepSession = useAppSelector(authStateSelector('keepSession'));
+    const { t } = useTranslation()
 
     /**
      * Обработчик записи токена в localStorage.
@@ -22,7 +25,7 @@ export function AuthForm (): React.JSX.Element {
      * @param token Токен.
      */
     const handleWriteToken = (token: string): void => {
-        localStorage.setItem('token', token);
+        keepSession && localStorage.setItem('token', token);
 
         dispatch(changeIsAuthAction(true));
 
@@ -48,12 +51,12 @@ export function AuthForm (): React.JSX.Element {
 
             <KeepSession />
 
-            <Button type={EButtonType.SUBMIT} onClick={handleSignIn}>
-                {i18n.t('signIn')}
+            <Button type={EButtonType.GENERAL} onClick={handleSignIn}>
+                {t('signIn')}
             </Button>
 
-            <Button type={EButtonType.SUBMIT} onClick={handleSignUp}>
-                {i18n.t('signUp')}
+            <Button type={EButtonType.SECONDARY} onClick={handleSignUp}>
+                {t('signUp')}
             </Button>
         </div>
     )

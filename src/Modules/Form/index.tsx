@@ -3,8 +3,8 @@
 export function FormPage (): React.JSX.Element {
 
     return (
-        <div>
+        <main>
             
-        </div>
+        </main>
     )
 }
