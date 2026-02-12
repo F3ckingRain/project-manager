@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { EFormType } from 'Modules/Auth/Form/Enums';
 import { initReactI18next } from 'react-i18next';
 
 i18n
@@ -8,34 +9,72 @@ i18n
   .init({
   resources: {
     en: { translation: { 
-      login: 'Login',
-      password: 'Password',
-      projects: "Projects", 
-      cases: "Test Cases",
-      keepSession: 'Remember me',
-      signIn: "Sign In",
-      signUp: "Sign Up",
-      logOut: "Logout",
-      create: "Create",
-      undo: "Undo",
-      noAccount: "Have no account?",
-      projectTitle: "Test Management System",
-      forgotPassword: "Forgot password?"
+      Global: {
+        projectTitle: "Test Management System",
+      },
+      Auth: {
+          Actions: {
+            General: {
+              [EFormType.SIGN_IN]: "Sign In",
+              [EFormType.SIGN_UP]: "Create",
+              [EFormType.RESTORE_PASSWORD]: "Restore",
+            },
+            Secondary: {
+              [EFormType.SIGN_IN]: "Sign Up",
+              [EFormType.SIGN_UP]: "Undo",
+              [EFormType.RESTORE_PASSWORD]: "Undo"
+            }
+          },
+          Labels: {
+            login: "Login or Email",
+            password: "Password",
+            keepSession: "Remember me",
+            noAccount: "Have no account?",
+            forgotPassword: "Forgot password?",
+          }
+      },
+      Table: {
+        Cases: {
+          title: "Test Cases"
+        },
+        Projects: {
+          title: "Projects"
+        }
+      },
        } },
     ru: { translation: { 
-      login: 'Логин или Эл. почта',
-      password: 'Пароль',
-      projects: "Проекты", 
-      cases: "Тест-кейсы", 
-      keepSession: 'Запомнить меня',
-      signIn: "Войти",
-      signUp: "Зарегистрироваться",
-      logOut: "Выйти",
-      create: "Создать",
-      undo: "Назад",
-      noAccount: "Нет аккаунта?",
-      projectTitle: "Система учёта тест-кейсов",
-      forgotPassword: "Забыли пароль?"
+      Global: {
+        projectTitle: "Система учёта тест-кейсов",
+      },
+      Auth: {
+          Actions: {
+            General: {
+              [EFormType.SIGN_IN]: "Войти",
+              [EFormType.SIGN_UP]: "Создать",
+              [EFormType.RESTORE_PASSWORD]: "Восстановить",
+            },
+            Secondary: {
+              [EFormType.SIGN_IN]: "Зарегистрироваться",
+              [EFormType.SIGN_UP]: "Назад",
+              [EFormType.RESTORE_PASSWORD]: "Назад"
+            }
+          },
+          Labels: {
+            login: "Логин или Эл. почта",
+            password: "Пароль",
+            keepSession: "Запомнить меня",
+            noAccount: "Нет аккаунта?",
+            forgotPassword: "Забыли пароль?",
+          }
+      },
+      Table: {
+        Cases: {
+          title: "Тест-кейсы"
+        },
+        Projects: {
+          title: "Проекты"
+        }
+      },
     } }
   },
   lng: "ru",

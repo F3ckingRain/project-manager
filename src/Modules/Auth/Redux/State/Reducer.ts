@@ -3,13 +3,14 @@ import { resetAuthAction } from "../../../Auth/Actions";
 import type { IAuthForm } from "../../../Auth/Models";
 import { changeFieldAction } from "./Actions";
 import { set } from 'lodash'
+import { EFormType } from "Modules/Auth/Form/Enums";
 
 /** Тип редакс-стейта данных формы авторизации. */
 type TAuthForm = Partial<IAuthForm>
 
 /** Начальное состояние формы. */
 const initialState: TAuthForm = {
-    authType: 'signIn',
+    formType: EFormType.SIGN_IN,
 };
 
 /** Редьюсер данных модуля авторизации. */

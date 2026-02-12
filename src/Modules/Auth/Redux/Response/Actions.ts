@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AUTH_MODULE_NAMESPACE } from "../../Consts";
-import { authFormStateSelector } from "../State/Selectors";
+import { authFormStateSelector, authStateSelector } from "../State/Selectors";
 import type { IThunkApiConfig } from "Store";
 import { isAuthSelector } from "Redux/Settings/Selectors";
 
@@ -68,6 +68,35 @@ export const signUpAction = createAsyncThunk<string, never, IThunkApiConfig>(
             const { login, password } = authFormStateSelector(getState())
 
             return !!login && !!password
+        }
+    }
+)
+
+/** Экшен восстановления пароля. */
+export const restorePasswordAction = createAsyncThunk<void, never, IThunkApiConfig>(
+    `${AUTH_MODULE_NAMESPACE}__restore_password`,
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const login = authStateSelector('login')(getState());
+
+            const body = JSON.stringify({ login })
+
+            const response = await fetch('api/auth/restore-password', { method: 'post', body });
+
+            if (response.status === 200) {
+                return
+            }
+
+            return rejectWithValue(response.status);
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    },
+    {
+        condition: (_, { getState }) => {
+            const login = authStateSelector('login')(getState());
+
+            return !!login
         }
     }
 )

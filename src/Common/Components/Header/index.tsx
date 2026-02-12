@@ -18,7 +18,7 @@ export function Header (): React.JSX.Element {
 
     // Динамическое изменение заголовка страницы.
     useEffect(() => {
-        window.document.title = t('projectTitle');
+        window.document.title = t('Global.projectTitle');
     }, [i18n.language, t])
 
     /**
@@ -47,7 +47,7 @@ export function Header (): React.JSX.Element {
             <div className={styles.header__main}>
                 <img src={logoPath} className={styles.header__logo}/>
 
-                <div className={styles.header__title}>{t('projectTitle')}</div>
+                <div className={styles.header__title}>{t('Global.projectTitle')}</div>
             </div>
 
             <div className={styles.languages}>

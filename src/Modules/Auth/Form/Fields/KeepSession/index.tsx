@@ -28,6 +28,6 @@ export function KeepSession (): React.JSX.Element {
         }
     
     return (
-        <Checkbox value={value} onChange={handleChange} label={t(fieldKey)} />
+        <Checkbox value={value} onChange={handleChange} label={t(`Auth.Labels.${fieldKey}`)} />
     )
 }

@@ -35,7 +35,7 @@ export function Login (): React.JSX.Element {
             <Input 
                 value={value}
                 onBlur={handleBlur}
-                label={t(fieldKey)}
+                label={t(`Auth.Labels.${fieldKey}`)}
             />
         </FieldWrap>
     )
