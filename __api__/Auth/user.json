@@ -1,0 +1,6 @@
+{
+    "token": "123456789",
+    "login": "admin",
+    "password": "admin",
+    "logo": "../src/Common/Assets/CompanyLogo.jpg"
+}

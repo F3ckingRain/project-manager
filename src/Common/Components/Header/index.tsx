@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom"
 import styles from './Styles.module.scss'
 import { useAppDispatch, useAppSelector } from "Hooks/Redux";
-import { isAuthSelector } from "Redux/Settings/Selectors";
+import { userInfoSelector } from "Redux/User/Selectors";
 import { LogOutIcon } from 'lucide-react'
-import { changeIsAuthAction } from "Redux/Settings/Actions";
+import { changeIsAuthAction } from "Redux/User/Actions";
 import { logOutAction } from "Modules/Auth/Redux/Response/Actions";
 import logoPath from 'Common/Assets/CompanyLogo.jpg'
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 export function Header (): React.JSX.Element {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const isAuth = useAppSelector(isAuthSelector);
+    const { isAuth, login, logo } = useAppSelector(userInfoSelector);
     const { t, i18n } = useTranslation();
 
     // Динамическое изменение заголовка страницы.
@@ -64,6 +64,16 @@ export function Header (): React.JSX.Element {
                 >
                     <span className="fi fi-us"/>
                 </button>
+            </div>
+
+            <div className={styles.userInfo}>
+                <div className={styles.userInfo__login}>
+                    {login}
+                </div>
+
+                {logo ? (
+                    <img className={styles.userInfo__logo} src={logo} alt='' />
+                ) : null}
             </div>
 
             {isAuth ? (

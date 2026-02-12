@@ -20,14 +20,14 @@ export function TablePage (): React.JSX.Element {
                     to={`/${TABLE_PAGE_PATH}/${PROJECTS_PATH}`}
                     className={({ isActive }) => isActive ? cx(styles.link, styles.link__active) : styles.link}
                 >
-                        {t('Projects.title')}
+                        {t('Table.Projects.title')}
                 </NavLink>
 
                 <NavLink 
                     to={`/${TABLE_PAGE_PATH}/${CASES_PATH}`}
                     className={({ isActive }) => isActive ? cx(styles.link, styles.link__active) : styles.link}
                 >
-                        {t('Cases.title')}
+                        {t('Table.Cases.title')}
                 </NavLink>
            </nav>
 

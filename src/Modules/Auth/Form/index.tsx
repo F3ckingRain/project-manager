@@ -6,7 +6,7 @@ import styles from './Styles.module.scss'
 import { EButtonType } from "Common/Components/Button/Enums";
 import { useAppDispatch, useAppSelector, useAppShallowSelector } from "Hooks/Redux";
 import { restorePasswordAction, signInAction, signUpAction } from "../Redux/Response/Actions";
-import { changeIsAuthAction } from "Redux/Settings/Actions";
+import { changeUserInfoAction } from "Redux/User/Actions";
 import { useNavigate } from "react-router-dom";
 import { TABLE_PAGE_PATH } from "Modules/Table/Consts";
 import { authStateSelector } from "../Redux/State/Selectors";
@@ -15,6 +15,7 @@ import { authFormErrorsSelector } from "../Redux/Validation/Selectors";
 import { isEmpty } from "lodash";
 import { EFormType } from "./Enums";
 import { changeFieldAction } from "../Redux/State/Actions";
+import type { IUserReduxState } from "Redux/User/Reducer";
 
 /** Форма авторизации. */
 export function AuthForm (): React.JSX.Element {
@@ -26,16 +27,18 @@ export function AuthForm (): React.JSX.Element {
     const { t } = useTranslation();
     
     /**
-     * Обработчик записи токена в localStorage.
+     * Обработчик Получения данных пользователя.
      * 
-     * @param token Токен.
+     * @param userInfo Данные пользователя.
      */
-    const handleWriteToken = (token: string): void => {
-        keepSession && localStorage.setItem('token', token);
+    const handleGetUserInfo = (userInfo: Partial<IUserReduxState>): void => {
+        const { token } = userInfo || {}
 
-        dispatch(changeIsAuthAction(true));
+        keepSession && token && localStorage.setItem('token', token);
 
-        navigate(`/${TABLE_PAGE_PATH}`)
+        dispatch(changeUserInfoAction({ ...userInfo, isAuth: true }));
+
+        navigate(`/${TABLE_PAGE_PATH}`);
     }
 
     /** Обработчик нажатия основной кнопки формы. */
@@ -45,7 +48,7 @@ export function AuthForm (): React.JSX.Element {
         }
 
         if (formType === EFormType.SIGN_IN) {
-            dispatch(signInAction()).unwrap().then(handleWriteToken)
+            dispatch(signInAction()).unwrap().then(handleGetUserInfo)
             
             return
         }
@@ -58,8 +61,8 @@ export function AuthForm (): React.JSX.Element {
             return
         }
 
-        dispatch(signUpAction()).unwrap().then((token: string) => {
-            handleWriteToken(token);
+        dispatch(signUpAction()).unwrap().then((userInfo: Partial<IUserReduxState>) => {
+            handleGetUserInfo(userInfo);
 
             dispatch(changeFieldAction({ key: 'formType', value: EFormType.SIGN_IN }))
         })        

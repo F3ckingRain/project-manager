@@ -18,7 +18,7 @@ export function FieldWrap ({ children, errors }: IProps): React.JSX.Element {
             {isEmpty(errors) ? null : (
                 <div className={styles.errors}>
                     {map(errors, (error) => (
-                        <div className={styles.errors__error}>
+                        <div className={styles.errors__error} key={error}>
                             <CircleAlertIcon />
 
                             <span>

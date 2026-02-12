@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./Modules/Auth/Reducer";
-import { settingsReducer } from "Redux/Settings/Reducer";
+import { userReducer } from "Redux/User/Reducer";
 
 /** Редьюсер приложения. */
 const rootReducer = combineReducers({
     auth: authReducer,
-    settings: settingsReducer,
+    user: userReducer,
 });
 
 /** Стор приложения. */
