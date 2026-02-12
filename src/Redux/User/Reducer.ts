@@ -29,7 +29,7 @@ export const userReducer = createReducer(initialState, (builder) => {
          })
 
         // Изменение данных пользователя.
-         .addCase(changeUserInfoAction, (reducerState, { payload }) => ({ ...reducerState, ...payload }))
+         .addCase(changeUserInfoAction, (_, { payload }) => ({ ...payload, isAuth: !!payload.isAuth }))
 
          // Экшен сброса данных пользователя.
          .addCase(resetUserAction, () => initialState)
