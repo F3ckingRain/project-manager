@@ -34,6 +34,10 @@ i18n
           }
       },
       Table: {
+        Labels: {
+          noData: "No data"
+        },
+        
         Cases: {
           title: "Test Cases"
         },
@@ -68,6 +72,10 @@ i18n
           }
       },
       Table: {
+        Labels: {
+          noData: "Нет данных"
+        },
+
         Cases: {
           title: "Тест-кейсы"
         },

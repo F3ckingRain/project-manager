@@ -44,12 +44,6 @@ export function Header (): React.JSX.Element {
 
     return (
         <header className={styles.header}>
-            <div className={styles.header__main}>
-                <img src={logoPath} className={styles.header__logo}/>
-
-                <div className={styles.header__title}>{t('Global.projectTitle')}</div>
-            </div>
-
             <div className={styles.languages}>
                 <button 
                     className={styles.languages__button}
@@ -64,6 +58,12 @@ export function Header (): React.JSX.Element {
                 >
                     <span className="fi fi-us"/>
                 </button>
+            </div>
+
+            <div className={styles.header__main}>
+                <img src={logoPath} className={styles.header__logo}/>
+
+                <div className={styles.header__title}>{t('Global.projectTitle')}</div>
             </div>
 
             <div className={styles.userInfo}>

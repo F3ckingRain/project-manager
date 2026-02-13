@@ -18,6 +18,8 @@
     backdrop-filter: blur(10px);
 
     &__main {
+        margin-left: 24px;
+
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -37,8 +39,6 @@
 }
 
 .languages {
-    margin-left: 24px;
-
     display: flex;
     flex-direction: row;
     gap: 12px;

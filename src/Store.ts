@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./Modules/Auth/Reducer";
 import { userReducer } from "Redux/User/Reducer";
+import { tableReducer } from "Modules/Table/Reducer";
 
 /** Редьюсер приложения. */
 const rootReducer = combineReducers({
     auth: authReducer,
+    table: tableReducer,
     user: userReducer,
 });
 

@@ -1,6 +1,6 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { PROJECTS_PATH } from "./Projects/Path";
-import { CASES_PATH } from "./Cases/Path";
+import { PROJECTS_PATH } from "./Projects/Consts";
+import { CASES_PATH } from "./Cases/Consts";
 import { Cases } from "./Cases";
 import { Projects } from "./Projects";
 import { TABLE_PAGE_PATH } from "./Consts";
