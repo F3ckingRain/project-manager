@@ -56,7 +56,7 @@ i18n
             status: "Status"
           },
           Form: {
-            title: "Test-Case № {{context}}"
+            title: "Test-Case {{context}}"
           }
         },
         Projects: {
@@ -69,7 +69,7 @@ i18n
             documents: "Documents"
           },
           Form: {
-            title: "Project №{{context}}"
+            title: "Project {{context}}"
           }
         },
       },
@@ -128,7 +128,7 @@ i18n
             status: "Статус"
           },
           Form: {
-            title: "Тест-кейс № {{context}}"
+            title: "Тест-кейс {{context}}"
           }
         },
         Projects: {
@@ -141,7 +141,7 @@ i18n
             documents: "Документация проекта"
           },
           Form: {
-            title: "Проект №{{context}}"
+            title: "Проект {{context}}"
           }
         }
       },

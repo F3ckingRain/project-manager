@@ -1,0 +1,66 @@
+[
+        {
+            "id": "1",
+            "name": "Обновление личного кабинета банка",
+            "client": "Альфа-Групп",
+            "executors": ["Иванов А.", "Смирнов К.", "Петрова М."],
+            "documents": "https://confluence.company.com/projects/1/docs",
+            "description": "Описание Альфа-Групп"
+        },
+        {
+            "id": "2",
+            "name": "Маркетплейс запасных частей (MVP)",
+            "client": "АвтоЗапчасть РФ",
+            "executors": ["Сидоров Д.", "Козлов Е."],
+            "documents": "https://docs.company.com/p2-spec-v1.2.pdf",
+            "description": "Описание АвтоЗапчасть РФ"
+        },
+        {
+            "id": "3",
+            "name": "Обновление личного кабинета банка",
+            "client": "Альфа-Групп",
+            "executors": ["Иванов А.", "Смирнов К.", "Петрова М."],
+            "documents": "https://confluence.company.com/projects/1/docs",
+            "description": "Описание Альфа-Групп"
+        },
+        {
+            "id": "4",
+            "name": "Маркетплейс запасных частей (MVP)",
+            "client": "АвтоЗапчасть РФ",
+            "executors": ["Сидоров Д.", "Козлов Е."],
+            "documents": "https://docs.company.com/p2-spec-v1.2.pdf",
+            "description": "Описание АвтоЗапчасть РФ"
+        },
+        {
+            "id": "5",
+            "name": "Обновление личного кабинета банка",
+            "client": "Альфа-Групп",
+            "executors": ["Иванов А.", "Смирнов К.", "Петрова М."],
+            "documents": "https://confluence.company.com/projects/1/docs",
+            "description": "Описание Альфа-Групп"
+        },
+        {
+            "id": "6",
+            "name": "Маркетплейс запасных частей (MVP)",
+            "client": "АвтоЗапчасть РФ",
+            "executors": ["Сидоров Д.", "Козлов Е."],
+            "documents": "https://docs.company.com/p2-spec-v1.2.pdf",
+            "description": "Описание АвтоЗапчасть РФ"
+        },
+        {
+            "id": "7",
+            "name": "Обновление личного кабинета банка",
+            "client": "Альфа-Групп",
+            "executors": ["Иванов А.", "Смирнов К.", "Петрова М."],
+            "documents": "https://confluence.company.com/projects/1/docs",
+            "description": "Описание Альфа-Групп"
+        },
+        {
+            "id": "8",
+            "name": "Маркетплейс запасных частей (MVP)",
+            "client": "АвтоЗапчасть РФ",
+            "executors": ["Сидоров Д.", "Козлов Е."],
+            "documents": "https://docs.company.com/p2-spec-v1.2.pdf",
+            "description": "Описание АвтоЗапчасть РФ"
+        }
+]

@@ -3,8 +3,17 @@ import styles from './Styles.module.scss'
 import { FormWrapper } from 'Common/Components/FormWrapper';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'Hooks/Redux';
-import { useEffect } from 'react';
-import { changeFormFieldAction, resetProjectFormAction, submitFormAction } from './Redux/State/Actions';
+import { useCallback, useEffect, useState } from 'react';
+import { changeFormFieldAction, getCaseDataAction, resetProjectFormAction, submitFormAction } from './Redux/Actions';
+import { CaseTitle } from './Fields/CaseTitle';
+import { PreCondition } from './Fields/PreCondition';
+import { Steps } from './Fields/Steps';
+import { Expection } from './Fields/Expection';
+import { Result } from './Fields/Result';
+import { PostCondition } from './Fields/PostCondition';
+import { Attachments } from './Fields/Attachments';
+import { Comment } from './Fields/Comment';
+import toast from 'react-hot-toast';
 
 /** Страница формы создания/редактирования тест-кейса. */
 export function FormPage (): React.JSX.Element {
@@ -12,6 +21,37 @@ export function FormPage (): React.JSX.Element {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { caseId } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
+
+    /**
+    * Обработчик получения данных тест-кейса по его идентификатору.
+    * 
+    * @param caseId Идентификатор тест-кейса.
+    */
+    const getCase = useCallback(async (caseId: string): Promise<void> => {
+        setIsLoading(true);
+    
+        try {
+            await dispatch(getCaseDataAction(caseId)).unwrap();
+        } catch (error: unknown) {
+                navigate('..')
+
+                toast.error(`${error}`)
+        } finally {
+            setIsLoading(false);
+        }
+    }, [dispatch, navigate]);
+
+    // Актуализация тест-кейса проекта.
+    useEffect(() => {
+        if (caseId) {
+            getCase(caseId)
+        }
+
+        return () => {
+            setIsLoading(false)
+        }
+    }, [getCase, caseId])
 
     // Актуализация идентификатора тест-кейса.
     useEffect(() => {
@@ -36,8 +76,27 @@ export function FormPage (): React.JSX.Element {
 
     return (
         <main className={styles.formPage}>
-            <FormWrapper title={t('Table.Cases.Form.title', { context: caseId })} onCancel={handleCancel} onSubmit={handleSubmit}>
-                fsafasfsa
+            <FormWrapper 
+                title={t('Table.Cases.Form.title', { context: caseId })}
+                onCancel={handleCancel} 
+                onSubmit={handleSubmit}
+                isLoading={isLoading}
+            >
+                <CaseTitle />
+
+                <PreCondition />
+                
+                <Steps />
+
+                <Expection />
+
+                <Result />
+
+                <PostCondition />
+
+                <Comment />
+
+                <Attachments />
             </FormWrapper>
         </main>
     )

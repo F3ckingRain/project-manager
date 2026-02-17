@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { PROJECT_FORM_NAMESPACE } from "../../Consts";
+import { PROJECT_FORM_NAMESPACE } from "../Consts";
 import { projectFormSelector } from "./Selectors";
 import type { IThunkApiConfig } from "Store";
 import type { IProject } from "Modules/Table/Models";
@@ -28,6 +28,22 @@ export const submitFormAction = createAsyncThunk<void, undefined, IThunkApiConfi
             }
 
             return rejectWithValue(response.status)
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
+/** Экшен получения данных проекта по его идентификатору. */
+export const getProjectDataAction = createAsyncThunk<IProject, string, IThunkApiConfig>(
+    `${PROJECT_FORM_NAMESPACE}__get`,
+    async (id, { rejectWithValue }) => {
+
+        try {
+            const response = await fetch(`/api/table/projects/get?id=${id}`, { headers: { 'Content-Type': "application/json" } })
+                .then(res => res.json());
+
+            return response
         } catch (error) {
             return rejectWithValue(error)
         }

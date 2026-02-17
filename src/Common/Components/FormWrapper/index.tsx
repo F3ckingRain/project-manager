@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../Button';
 import { EButtonType } from '../Button/Enums';
 import styles from './Styles.module.scss'
+import { Spinner } from '../Spinner';
+import { ESpinnerType } from '../Spinner/Enums';
 
 interface IProps {
     /** Заголовок формы. */
@@ -12,10 +14,12 @@ interface IProps {
     onCancel?: () => void;
     /** Дочерний элемент формы. */
     children: React.ReactNode;
+    /** Флаг загрузки формы. */
+    isLoading?: boolean;
 }
 
 /** Обёртка компонента формы. */
-export function FormWrapper ({ title, children, onSubmit, onCancel }: IProps): React.JSX.Element {
+export function FormWrapper ({ title, children, onSubmit, onCancel, isLoading }: IProps): React.JSX.Element {
     const { t } = useTranslation();
 
     return (
@@ -39,6 +43,8 @@ export function FormWrapper ({ title, children, onSubmit, onCancel }: IProps): R
                         {t('Form.Actions.submit')}
                 </Button>
             </div>
+
+            {isLoading ? <Spinner type={ESpinnerType.WIDGET} /> : null}
         </form>
     )
 }

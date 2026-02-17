@@ -12,7 +12,7 @@ export const getTableProjectsAction = createAsyncThunk<IProject[], undefined, IT
         const body = JSON.stringify(filters);
 
         try {
-            return await fetch('/api/table/get-projects', { method: "post", body })
+            return await fetch('/api/table/projects/list', { method: "post", body })
                 .then(res => res.json())
         } catch (error) {
             return rejectWithValue(error)

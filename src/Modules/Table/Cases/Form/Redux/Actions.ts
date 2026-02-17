@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { CASES_CREATE_PATH } from "../../Consts";
+import { CASES_CREATE_PATH } from "../Consts";
 import { casesFormSelector } from "./Selectors";
 import type { IThunkApiConfig } from "Store";
 import type { ITestCase } from "Modules/Table/Models";
@@ -28,6 +28,22 @@ export const submitFormAction = createAsyncThunk<void, undefined, IThunkApiConfi
             }
 
             return rejectWithValue(response.status)
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
+/** Экшен получения данных тест-кейса по его идентификатору. */
+export const getCaseDataAction = createAsyncThunk<ITestCase, string, IThunkApiConfig>(
+    `${CASES_CREATE_PATH}__get`,
+    async (id, { rejectWithValue }) => {
+
+        try {
+            const response = await fetch(`/api/table/cases/get?id=${id}`, { headers: { 'Content-Type': "application/json" } })
+                .then(res => res.json());
+
+            return response
         } catch (error) {
             return rejectWithValue(error)
         }

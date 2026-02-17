@@ -59,20 +59,24 @@ function ProjectsComponent (): React.JSX.Element {
     /** 
      * Обработчик удаления проекта. 
      * 
-     * @param projectId Идентификатор проекта.
+     * @param rowId Идентификатор ряда.
      */
-    const handleRemoveProject = useCallback((projectId: string) => (): void => {
+    const handleRemoveProject = useCallback((rowId: string) => (): void => {
+      const projectId = projects?.[+rowId]?.id || '';
+
       dispatch(removeProjectAction(projectId))
-    }, [dispatch]);
+    }, [dispatch, projects]);
 
     /**
      * Обработчик изменения проекта.
      * 
-     * @param projectId Идентификатор проекта.
+     * @param rowId Идентификатор ряда.
      */
-    const handleEditProject = useCallback((projectId: string) => (): void => {
+    const handleEditProject = useCallback((rowId: string) => (): void => {
+      const projectId = projects?.[+rowId]?.id || '';
+
         navigate(generatePath(PROJECT_EDIT_PATH, { projectId }))
-    }, [navigate])
+    }, [navigate, projects]);
 
     /** Функция получения списка проектов. */
     const getProjects = useCallback(async (): Promise<void>=> {

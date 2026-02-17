@@ -20,7 +20,6 @@ import { CASES_CREATE_PATH, CASES_EDIT_PATH } from "./Form/Consts";
 import { generatePath, Route, Routes, useNavigate } from "react-router-dom";
 import { changePaginationAction } from "./Redux/Filters/Actions";
 import { FormPage } from "./Form";
-import { noop } from "lodash";
 
 /** 
  * Функция получения имени класса для статуса.
@@ -92,25 +91,31 @@ function CasesComponent (): React.JSX.Element {
             return <span className={`rounded-full px-2 py-1 text-xs font-medium ${getStatusClassName(status)}`}>{status}</span>;
           }
         },
-    ]), [t])
+    ]), [t]);
+
+    
 
     /** 
      * Обработчик удаления тест-кейса. 
      * 
-     * @param caseId Идентификатор тест-кейса.
+     * @param rowId Идентификатор ряда.
      */
-    const handleRemoveCase = useCallback((caseId: string) => (): void => {
+    const handleRemoveCase = useCallback((rowId: string) => (): void => {
+      const caseId = cases?.[+rowId]?.id || '';
+
       dispatch(removeCaseAction(caseId))
-    }, [dispatch]);
+    }, [dispatch, cases]);
 
     /**
      * Обработчик изменения тест-кейса.
      * 
-     * @param caseId Идентификатор тест-кейса.
+     * @param rowId Идентификатор ряда.
      */
-    const handleEditCase = useCallback((caseId: string) => (): void => {
+    const handleEditCase = useCallback((rowId: string) => (): void => {
+      const caseId = cases?.[+rowId]?.id || '';
+
         navigate(generatePath(CASES_EDIT_PATH, { caseId }))
-    }, [navigate])
+    }, [navigate, cases]);
 
     /** Функция получения списка тест-кейсов. */
     const getCases = useCallback(async (): Promise<void>=> {
@@ -152,7 +157,7 @@ function CasesComponent (): React.JSX.Element {
     return (
        <>
           <TableWrapper>
-            <CasesFilters onGetCases={noop} />
+            <CasesFilters onGetCases={getCases} />
 
             <Button type={EButtonType.GENERAL} onClick={handleCreateCase} additionalClassName={styles.createButton}>
               {t(`Auth.Actions.General.${EFormType.SIGN_UP}`)}

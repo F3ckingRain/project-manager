@@ -4,7 +4,7 @@ import styles from './Styles.module.scss'
 import { useAppDispatch, useAppSelector } from "Hooks/Redux";
 import { userInfoSelector } from "Redux/User/Selectors";
 import { LogOutIcon } from 'lucide-react'
-import { changeIsAuthAction } from "Redux/User/Actions";
+import { resetUserAction } from "Redux/User/Actions";
 import { logOutAction } from "Modules/Auth/Redux/Response/Actions";
 import logoPath from 'Common/Assets/CompanyLogo.jpg'
 import { useEffect } from "react";
@@ -36,7 +36,7 @@ export function Header (): React.JSX.Element {
             .then(() => {
                 localStorage.removeItem('token');
 
-                dispatch(changeIsAuthAction(false));
+                dispatch(resetUserAction());
 
                 navigate('/')
             })

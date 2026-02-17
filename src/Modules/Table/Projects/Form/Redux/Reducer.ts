@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import type { IProject } from "Modules/Table/Models";
-import { changeFormFieldAction, resetProjectFormAction } from "./Actions";
+import { changeFormFieldAction, getProjectDataAction, resetProjectFormAction } from "./Actions";
 import { set } from "lodash";
 
 /** Начальное состояние. */
@@ -15,6 +15,9 @@ export const projectFormReducer = createReducer(initialState, (builder) => {
 
             set(reducerState, key, value)
         })
+
+        // Получение данных формы.
+        .addCase(getProjectDataAction.fulfilled, (_, { payload }) => payload)
 
         // Сброс данных формы.
         .addCase(resetProjectFormAction, () => initialState)

@@ -4,6 +4,7 @@ import { AuthPage } from "../Modules/Auth";
 import { TablePage } from "../Modules/Table";
 import { Header } from "Common/Components/Header";
 import { useCheckAuthToken } from "./Hooks";
+import { Toaster } from "react-hot-toast";
 
 /** Лейаут приложения. */
 export function AppLayout (): React.JSX.Element {
@@ -13,13 +14,15 @@ export function AppLayout (): React.JSX.Element {
 
     return (
         <>
-        <Header />
+            <Toaster />
 
-        <Routes>
-            <Route element={<AuthPage />} index />
+            <Header />
 
-            <Route element={<TablePage />} path={`${TABLE_PAGE_PATH}/*`} />
-        </Routes>
+            <Routes>
+                <Route element={<AuthPage />} index />
+
+                <Route element={<TablePage />} path={`${TABLE_PAGE_PATH}/*`} />
+            </Routes>
         </>
     )
 }

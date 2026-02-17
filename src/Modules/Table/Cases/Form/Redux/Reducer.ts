@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import type { ITestCase } from "Modules/Table/Models";
-import { changeFormFieldAction, resetProjectFormAction } from "./Actions";
+import { changeFormFieldAction, getCaseDataAction, resetProjectFormAction } from "./Actions";
 import { set } from "lodash";
 
 /** Начальное состояние. */
@@ -15,6 +15,9 @@ export const caseFormReducer = createReducer(initialState, (builder) => {
 
             set(reducerState, key, value)
         })
+
+        // Получение данных тест-кейса.
+        .addCase(getCaseDataAction.fulfilled, (_, { payload }) => payload)
 
         // Сброс данных формы.
         .addCase(resetProjectFormAction, () => initialState)
