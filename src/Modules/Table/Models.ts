@@ -3,7 +3,7 @@ import type { ETestCaseStatus } from "./Enums";
 /** Интерфейс данных проекта. */
 export interface IProject {
     /** Идентификатор проекта. */
-    id: number;
+    id: string;
     /** Название проекта. */
     name: string;
     /** Заказчик. */
@@ -21,7 +21,7 @@ export interface ITestCase {
     /** Идентификатор тест-кейса. */
     id: string;
     /** Идентификатор проекта. */
-    projectId: number;
+    projectId: string;
     /** Заголовок. */
     title: string;
     /** Статус. */

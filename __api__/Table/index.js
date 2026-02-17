@@ -15,3 +15,33 @@ tableRouter.use('/get-projects', (_, res) => {
 tableRouter.use('/get-test-cases', (_, res) => {
     res.json(tableData.cases);
 })
+
+tableRouter.use('/projects/create', (_, res) => {
+    res.status(200).send('success')
+})
+
+tableRouter.use('/projects/edit', (_, res) => {
+    res.status(200).send('success')
+})
+
+tableRouter.use('/projects/remove', (req, res) => {
+    const { projectId } = req.body || {};
+    const filteredArr = tableData.projects.filter(({ id }) => id !== projectId);
+
+    res.json(filteredArr);
+})
+
+tableRouter.use('/cases/create', (_, res) => {
+    res.status(200).send('success')
+})
+
+tableRouter.use('/cases/edit', (_, res) => {
+    res.status(200).send('success')
+})
+
+tableRouter.use('/cases/remove', (req, res) => {
+    const { caseId } = req.body || {};
+    const filteredArr = tableData.cases.filter(({ id }) => id !== caseId);
+
+    res.json(filteredArr);
+})

@@ -3,10 +3,24 @@ import type { ITestCase } from "../Models";
 import { ETestCaseStatus } from "../Enums";
 import { DataTable } from "Common/Components/DataTable";
 import { useAppDispatch, useAppShallowSelector } from "Hooks/Redux";
-import { casesSelector } from "./Redux/Selectors";
-import { useCallback, useEffect, useState } from "react";
-import { getTableCasessAction } from "./Redux/Actions";
+import { casesSelector } from "./Redux/State/Selectors";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { getTableCasesAction, removeCaseAction } from "./Redux/State/Actions";
 import { resetTableAction } from "../Actions";
+import { TableWrapper } from "Common/Components/TableWrapper";
+import { EFormType } from "Modules/Auth/Form/Enums";
+import { useTranslation } from "react-i18next";
+import { Button } from "Common/Components/Button";
+import styles from './Styles.module.scss'
+import { Pagination } from "Common/Components/Pagination";
+import { AVAILABLE_PAGES } from "Common/Consts";
+import { CasesFilters } from "./Filters";
+import { EButtonType } from "Common/Components/Button/Enums";
+import { CASES_CREATE_PATH, CASES_EDIT_PATH } from "./Form/Consts";
+import { generatePath, Route, Routes, useNavigate } from "react-router-dom";
+import { changePaginationAction } from "./Redux/Filters/Actions";
+import { FormPage } from "./Form";
+import { noop } from "lodash";
 
 /** 
  * Функция получения имени класса для статуса.
@@ -25,68 +39,105 @@ function getStatusClassName (status: ETestCaseStatus): string {
   return 'bg-amber-100 text-amber-700'
 }
 
-/** Конфигурация колонок таблицы тест-кейсов. */
-const TEST_CASE_COLUMNS: ColumnDef<ITestCase>[] = [
-  {
-    accessorKey: 'title',
-    header: 'Тест-кейс',
-  },
-  {
-    accessorKey: "preCondition",
-    header: "Преусловие",
-  }, 
-  {
-    accessorKey: "steps",
-    header: "Шаги",
-  }, 
-  {
-    accessorKey: "expected",
-    header: "Ожидаемый результат",
-  }, 
-  {
-    accessorKey: "result",
-    header: "Фактический результат",
-  }, 
-  {
-    accessorKey: "postCondition",
-    header: "Постусловия",
-  }, 
-  {
-    accessorKey: "comment",
-    header: "Комментарий",
-  }, 
-  {
-    accessorKey: "attachments",
-    header: "Вложения",
-  }, 
-  {
-      accessorKey: 'status',
-      header: 'Статус',
-      cell: ({ row }) => {
-        const status = row.original.status;
-
-        return <span className={`rounded-full px-2 py-1 text-xs font-medium ${getStatusClassName(status)}`}>{status}</span>;
-      }
-    },
-];
-
 
 /** Блок "Тест-кейсы". */
-export function Cases (): React.JSX.Element {
+function CasesComponent (): React.JSX.Element {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate()
     const cases = useAppShallowSelector(casesSelector);
     const [isLoading, setIsLoading] = useState(false);
+    const { t } = useTranslation();
+
+    /** Конфигурация колонок таблицы тест-кейсов. */
+    const TEST_CASE_COLUMNS: ColumnDef<ITestCase>[] = useMemo(() => (
+      [
+      {
+        accessorKey: 'title',
+        header: t('Table.Cases.Config.title'),
+      },
+      {
+        accessorKey: "preCondition",
+        header: t('Table.Cases.Config.preCondition'),
+      }, 
+      {
+        accessorKey: "steps",
+        header: t('Table.Cases.Config.steps'),
+      }, 
+      {
+        accessorKey: "expected",
+        header: t('Table.Cases.Config.expected'),
+      }, 
+      {
+        accessorKey: "result",
+        header: t('Table.Cases.Config.result'),
+      }, 
+      {
+        accessorKey: "postCondition",
+        header: t('Table.Cases.Config.postCondition'),
+      }, 
+      {
+        accessorKey: "comment",
+        header: t('Table.Cases.Config.comment'),
+      }, 
+      {
+        accessorKey: "attachments",
+        header: t('Table.Cases.Config.attachments'),
+      }, 
+      {
+          accessorKey: 'status',
+          header: t('Table.Cases.Config.status'),
+          cell: ({ row }) => {
+            const status = row.original.status;
+
+            return <span className={`rounded-full px-2 py-1 text-xs font-medium ${getStatusClassName(status)}`}>{status}</span>;
+          }
+        },
+    ]), [t])
+
+    /** 
+     * Обработчик удаления тест-кейса. 
+     * 
+     * @param caseId Идентификатор тест-кейса.
+     */
+    const handleRemoveCase = useCallback((caseId: string) => (): void => {
+      dispatch(removeCaseAction(caseId))
+    }, [dispatch]);
+
+    /**
+     * Обработчик изменения тест-кейса.
+     * 
+     * @param caseId Идентификатор тест-кейса.
+     */
+    const handleEditCase = useCallback((caseId: string) => (): void => {
+        navigate(generatePath(CASES_EDIT_PATH, { caseId }))
+    }, [navigate])
 
     /** Функция получения списка тест-кейсов. */
     const getCases = useCallback(async (): Promise<void>=> {
       setIsLoading(true);
 
       try {
-        await dispatch(getTableCasessAction()).unwrap()
+        await dispatch(getTableCasesAction()).unwrap()
       } finally {
         setIsLoading(false)
       }
     }, [dispatch])
+
+    /** Обработчик создания нового тест-кейса. */
+        const handleCreateCase = useCallback((): void => {
+          navigate(CASES_CREATE_PATH)
+        }, [navigate]);
+
+    /** 
+         * Обработчик изменения пагинации. 
+         * 
+         * @param newPage Новая страница.
+         */
+        const handleChangePagionation = useCallback((newPage: number): void => {
+          dispatch(changePaginationAction(newPage));
+    
+          getCases()
+        }, [dispatch, getCases]);    
 
     // Получение данных при входе на страницу и их сброс при выходе.
     useEffect(() => {
@@ -99,6 +150,35 @@ export function Cases (): React.JSX.Element {
     }, [dispatch, getCases]);
     
     return (
-        <DataTable columns={TEST_CASE_COLUMNS} data={cases} isLoading={isLoading} />
+       <>
+          <TableWrapper>
+            <CasesFilters onGetCases={noop} />
+
+            <Button type={EButtonType.GENERAL} onClick={handleCreateCase} additionalClassName={styles.createButton}>
+              {t(`Auth.Actions.General.${EFormType.SIGN_UP}`)}
+            </Button>
+
+            <DataTable 
+              columns={TEST_CASE_COLUMNS} 
+              data={cases} 
+              isLoading={isLoading}
+              actions={ {
+                onEdit: handleEditCase,
+                onRemove: handleRemoveCase
+              } }
+            />
+
+            <Pagination availablePages={AVAILABLE_PAGES} onChange={handleChangePagionation} />
+        </TableWrapper>
+
+        <Routes>
+          <Route element={<FormPage />} path={CASES_CREATE_PATH} />
+
+          <Route element={<FormPage />} path={CASES_EDIT_PATH} />
+        </Routes>
+        </>
     )
 }
+
+/** Мемоизированный компонент таблицы тест-кейсов. */
+export const Cases = memo(CasesComponent)

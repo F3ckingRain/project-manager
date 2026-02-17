@@ -1,17 +1,11 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { getTableProjectsAction } from "./Actions";
-import type { IProject } from "Modules/Table/Models";
-import { resetTableAction } from "Modules/Table/Actions";
+import { combineReducers } from "@reduxjs/toolkit";
+import { projectsReducer } from "./State/Reducer";
+import { projectsFiltersReducer } from "./Filters/Reducer";
+import { projectFormReducer } from "../Form/Redux/State/Reducer";
 
-/** Начальное состояние. */
-const initialState: IProject[] = []
-
-/** Редьюсер списка проектов. */
-export const projectsReducer = createReducer(initialState, (builder) => {
-    builder
-        // Получение списка проектов. 
-        .addCase(getTableProjectsAction.fulfilled, (_, { payload }) => payload)
-
-        // Сброс списка проектов. 
-        .addCase(resetTableAction, () => initialState);
+/** Редьюсер таблицы проектов. */
+export const projectsTableReducer = combineReducers({
+    state: projectsReducer,
+    filters: projectsFiltersReducer,
+    form: projectFormReducer
 })

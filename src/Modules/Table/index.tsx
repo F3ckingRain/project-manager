@@ -32,9 +32,9 @@ export function TablePage (): React.JSX.Element {
            </nav>
 
             <Routes>
-                <Route element={<Projects />} path={PROJECTS_PATH} />
+                <Route element={<Projects />} path={`${PROJECTS_PATH}/*`} />
 
-                <Route element={<Cases />} path={CASES_PATH} />
+                <Route element={<Cases />} path={`${CASES_PATH}/*`} />
             </Routes>
 
             {pathname === `/${TABLE_PAGE_PATH}` ? (

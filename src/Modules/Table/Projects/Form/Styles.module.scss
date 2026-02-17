@@ -1,0 +1,18 @@
+.formPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    padding: 64px;
+
+    width: 100dvw;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(8px);
+
+    box-sizing: border-box;
+}

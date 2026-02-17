@@ -11,6 +11,10 @@ import { useTranslation } from 'react-i18next';
 import { Spinner } from '../Spinner';
 import { ESpinnerType } from '../Spinner/Enums';
 import styles from './Styles.module.scss'
+import type { ITableActions } from './Models';
+import { isUndefined } from 'lodash';
+import { Edit2Icon, DeleteIcon } from 'lucide-react'
+import cx from 'classnames'
 
 interface IProps<TData, TValue> {
     /** Колонки таблицы. */
@@ -21,10 +25,12 @@ interface IProps<TData, TValue> {
     onSort?: (newSort: SortingState) => void;
     /** Флаг загрузки таблицы. */
     isLoading?: boolean;
+    /** Дейтсвия с элементов таблицы. */
+    actions?: ITableActions;
 }
 
 /** Компонент для отображения данных в виде таблицы. */
-export function DataTable<TData, TValue>({ columns, data, onSort, isLoading }: IProps<TData, TValue>): React.JSX.Element {
+export function DataTable<TData, TValue>({ columns, data, onSort, isLoading, actions }: IProps<TData, TValue>): React.JSX.Element {
   const [sorting, setSorting] = useState<SortingState>([]);
   const { t } = useTranslation();
 
@@ -58,6 +64,12 @@ export function DataTable<TData, TValue>({ columns, data, onSort, isLoading }: I
                     : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
+
+              {isUndefined(actions) ? null : (
+                <th key={'actions'} className={cx(styles.cell, styles.cell__actions, 'px-6 py-4 font-semibold')}>
+                    {t('Table.Labels.Actions')}
+                </th>
+              )}
             </tr>
           ))}
         </thead>
@@ -71,6 +83,20 @@ export function DataTable<TData, TValue>({ columns, data, onSort, isLoading }: I
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
+
+                {isUndefined(actions) ? null : (
+                  <td key={'actions'} className={cx(styles.cell, 'px-12 py-8')}>
+                      <div className={styles.actionButtons}>
+                        <button className={styles.actionButtons__button} onClick={actions.onEdit(row.id)}>
+                        <Edit2Icon />
+                      </button>
+
+                      <button className={styles.actionButtons__button} onClick={actions.onRemove(row.id)}> 
+                        <DeleteIcon />
+                      </button>
+                      </div>
+                  </td>
+                )}
               </tr>
             ))
           ) : (

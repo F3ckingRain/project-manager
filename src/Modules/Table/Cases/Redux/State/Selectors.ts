@@ -3,5 +3,5 @@ import type { TReduxState } from "Store";
 
 /** Селектор списка тест-кейсов. */
 export function casesSelector ({ table }: TReduxState): ITestCase[] {
-    return table.cases
+    return table.cases.state
 }

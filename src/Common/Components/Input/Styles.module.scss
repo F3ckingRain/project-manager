@@ -1,10 +1,9 @@
-.label {
+.inputContainer {
     position: relative;
+}
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.label {
+    margin-left: 4px;
 
     letter-spacing: 0.07rem;
 
@@ -12,15 +11,15 @@
 }
 
 .input {
-    margin-left: 4px;   
+    margin-top: 4px;
     padding: 8px 12px;
 
-    min-width: 70%;
+    width: 100%;
     height: 40px;
 
     color: #2D3436;
 
-    border: 1px solid transparent;
+    border: 1px solid #2D3436;
     border-radius: 8px;
 
     outline: none;
@@ -46,7 +45,7 @@
 
 .peek {
     position: absolute;
-    top: 50%;
+    bottom: 8px;
     right: 12px;
 
     width: 18px;
@@ -61,6 +60,4 @@
     background-color: transparent;
 
     cursor: pointer;
-
-    translate: 0 -50%;
 }

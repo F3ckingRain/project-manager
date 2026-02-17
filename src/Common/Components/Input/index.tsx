@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type HTMLProps } from "react";
+import { useEffect, useState, type ChangeEvent, type HTMLProps } from "react";
 import styles from './Styles.module.scss'
 import cx from 'classnames'
 import { EyeIcon, EyeClosedIcon } from 'lucide-react'
@@ -18,6 +18,11 @@ interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'onBlur' | 'label' | 
 export function Input ({ value, onBlur, label, type = 'text', placeholder, ...props }: IProps): React.JSX.Element {
     const [state, setState] = useState<string>(value || '');
     const [visibleType, setVisibleType] = useState(type);
+
+    // Актуализация значения инпута.
+    useEffect(() => {
+        setState(value || '');
+    }, [value])
 
     /** 
      * Обработчик изменения значения в инпуте.
@@ -39,8 +44,10 @@ export function Input ({ value, onBlur, label, type = 'text', placeholder, ...pr
     }
 
     return (
-        <label className={styles.label}>
-            {label}
+        <div className={styles.inputContainer}>
+            <label className={styles.label}>
+                {label}
+            </label>    
 
             <input 
                 className={styles.input}
@@ -57,6 +64,6 @@ export function Input ({ value, onBlur, label, type = 'text', placeholder, ...pr
                     {visibleType === 'password' ? <EyeClosedIcon /> : <EyeIcon />}
                 </button>
             ) : null}
-        </label>
+        </div>
     )
 }

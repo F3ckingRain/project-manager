@@ -35,16 +35,50 @@ i18n
       },
       Table: {
         Labels: {
-          noData: "No data"
+          noData: "No data",
+          Actions: "Actions"
         },
-        
+        Actions: {
+          resetFilters: "Reset filters",
+        },
         Cases: {
-          title: "Test Cases"
+          title: "Repository",
+          Config: {
+            title: "Test-Case",
+            preCondition: "Pre-Condition",
+            projectId: "Project Number",
+            steps: "Steps",
+            expected: "Expected",
+            result: "Result",
+            postCondition: "Post-Condition",
+            comment: "Comment",
+            attachments: "Attachments",
+            status: "Status"
+          },
+          Form: {
+            title: "Test-Case № {{context}}"
+          }
         },
         Projects: {
-          title: "Projects"
-        }
+          title: "Projects",
+          Config: {
+            name: "Project Name",
+            description: "Description",
+            client: "Client",
+            executors: "Executors",
+            documents: "Documents"
+          },
+          Form: {
+            title: "Project №{{context}}"
+          }
+        },
       },
+      Form: {
+        Actions: {
+          submit: "Submit",
+          cancel: "Cancel"
+        }
+      }
        } },
     ru: { translation: { 
       Global: {
@@ -73,16 +107,50 @@ i18n
       },
       Table: {
         Labels: {
-          noData: "Нет данных"
+          noData: "Нет данных",
+          Actions: "Действия"
         },
-
+        Actions: {
+          resetFilters: "Сбросить фильтры",
+        },
         Cases: {
-          title: "Тест-кейсы"
+          title: "Репозиторий",
+          Config: {
+            title: "Тест-кейс",
+            projectId: "Номер проекта",
+            preCondition: "Преусловие",
+            steps: "Шаги",
+            expected: "Ожидаемый результат",
+            result: "Фактический результат",
+            postCondition: "Постусловие",
+            comment: "Комментарий",
+            attachments: "Вложения",
+            status: "Статус"
+          },
+          Form: {
+            title: "Тест-кейс № {{context}}"
+          }
         },
         Projects: {
-          title: "Проекты"
+          title: "Проекты",
+          Config: {
+            name: "Название проекта",
+            description: "Описание проекта",
+            client: "Заказчик",
+            executors: "Список исполнителей",
+            documents: "Документация проекта"
+          },
+          Form: {
+            title: "Проект №{{context}}"
+          }
         }
       },
+      Form: {
+        Actions: {
+          submit: "Отправить",
+          cancel: "Отмена"
+        }
+      }
     } }
   },
   lng: "ru",

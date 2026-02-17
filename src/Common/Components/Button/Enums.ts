@@ -4,4 +4,6 @@ export enum EButtonType {
     GENERAL = 'GENERAL',
     /** Второстепенный стиль кнопки. */
     SECONDARY = 'SECONDARY',
+    /** Ссылка. */
+    LINK = 'LINK'
 }

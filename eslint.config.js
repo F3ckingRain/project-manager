@@ -23,6 +23,7 @@ export default defineConfig([
          "block-spacing": ["error", "always"],
          "object-curly-spacing": ["error", "always"],
          "@typescript-eslint/no-unused-expressions": "off",
+         "react-hooks/set-state-in-effect": "off",
     }
   }
 ])
