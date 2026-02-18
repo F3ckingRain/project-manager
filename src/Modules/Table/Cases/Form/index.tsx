@@ -4,7 +4,7 @@ import { FormWrapper } from 'Common/Components/FormWrapper';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'Hooks/Redux';
 import { useCallback, useEffect, useState } from 'react';
-import { changeFormFieldAction, getCaseDataAction, resetProjectFormAction, submitFormAction } from './Redux/Actions';
+import { getCaseDataAction, resetProjectFormAction, submitFormAction } from './Redux/State/Actions';
 import { CaseTitle } from './Fields/CaseTitle';
 import { PreCondition } from './Fields/PreCondition';
 import { Steps } from './Fields/Steps';
@@ -14,6 +14,9 @@ import { PostCondition } from './Fields/PostCondition';
 import { Attachments } from './Fields/Attachments';
 import { Comment } from './Fields/Comment';
 import toast from 'react-hot-toast';
+import { validateForm } from './Redux/Validation/Actions';
+import { IsAuto } from './Fields/IsAuto';
+import { Description } from './Fields/Description';
 
 /** Страница формы создания/редактирования тест-кейса. */
 export function FormPage (): React.JSX.Element {
@@ -34,9 +37,9 @@ export function FormPage (): React.JSX.Element {
         try {
             await dispatch(getCaseDataAction(caseId)).unwrap();
         } catch (error: unknown) {
-                navigate('..')
+            navigate('..')
 
-                toast.error(`${error}`)
+            toast.error(`${error}`)
         } finally {
             setIsLoading(false);
         }
@@ -53,11 +56,6 @@ export function FormPage (): React.JSX.Element {
         }
     }, [getCase, caseId])
 
-    // Актуализация идентификатора тест-кейса.
-    useEffect(() => {
-        caseId && dispatch(changeFormFieldAction({ key: 'id', value: caseId }))
-    }, [dispatch, caseId])
-
     // Сброс данных формы при выходе.
     useEffect(() => () => {
         dispatch(resetProjectFormAction())
@@ -70,8 +68,11 @@ export function FormPage (): React.JSX.Element {
 
     /** Обработчик события отправки. */
     const handleSubmit = (): void => {
-        dispatch(submitFormAction()).unwrap()
-            .then(handleCancel)
+        dispatch(validateForm()).unwrap()
+            .then(() => {
+                dispatch(submitFormAction()).unwrap()
+                    .then(handleCancel)
+            })
     }
 
     return (
@@ -84,8 +85,10 @@ export function FormPage (): React.JSX.Element {
             >
                 <CaseTitle />
 
-                <PreCondition />
+                <Description />
                 
+                <PreCondition />
+
                 <Steps />
 
                 <Expection />
@@ -97,6 +100,8 @@ export function FormPage (): React.JSX.Element {
                 <Comment />
 
                 <Attachments />
+
+                <IsAuto />
             </FormWrapper>
         </main>
     )

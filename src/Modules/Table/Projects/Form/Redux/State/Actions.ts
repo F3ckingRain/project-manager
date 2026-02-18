@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { PROJECT_FORM_NAMESPACE } from "../Consts";
+import { PROJECT_FORM_NAMESPACE } from "../../Consts";
 import { projectFormSelector } from "./Selectors";
 import type { IThunkApiConfig } from "Store";
 import type { IProject } from "Modules/Table/Models";

@@ -11,7 +11,13 @@ const rootReducer = combineReducers({
 });
 
 /** Стор приложения. */
-const store = configureStore({ reducer: rootReducer });
+const store = configureStore({ 
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false
+    }),
+ });
 
 /** Тип стора приложения. */
 export type TReduxState = ReturnType<typeof store.getState>;

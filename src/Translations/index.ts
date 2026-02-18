@@ -45,15 +45,17 @@ i18n
           title: "Repository",
           Config: {
             title: "Test-Case",
+            description: "Description",
             preCondition: "Pre-Condition",
             projectId: "Project Number",
-            steps: "Steps",
+            steps: "Step №{{count}}",
             expected: "Expected",
             result: "Result",
             postCondition: "Post-Condition",
             comment: "Comment",
             attachments: "Attachments",
-            status: "Status"
+            status: "Status",
+            isAuto: "Auto?"
           },
           Form: {
             title: "Test-Case {{context}}"
@@ -72,6 +74,16 @@ i18n
             title: "Project {{context}}"
           }
         },
+        TestRuns: {
+          title: "Test Runs",
+          Config: {
+            testCases: "Test Cases",
+            report: "Report"
+          },
+          Form: {
+            title: "Test Run {{context}}"
+          }
+        }
       },
       Form: {
         Actions: {
@@ -117,15 +129,17 @@ i18n
           title: "Репозиторий",
           Config: {
             title: "Тест-кейс",
+            description: "Описание",
             projectId: "Номер проекта",
             preCondition: "Преусловие",
-            steps: "Шаги",
+            steps: "Шаг №{{count}}",
             expected: "Ожидаемый результат",
             result: "Фактический результат",
             postCondition: "Постусловие",
             comment: "Комментарий",
             attachments: "Вложения",
-            status: "Статус"
+            status: "Статус",
+            isAuto: "Авто-тест?"
           },
           Form: {
             title: "Тест-кейс {{context}}"
@@ -142,6 +156,16 @@ i18n
           },
           Form: {
             title: "Проект {{context}}"
+          }
+        },
+        TestRuns: {
+          title: "Прогоны",
+          Config: {
+            testCases: "Тест-кейсы",
+            report: "Отчёт"
+          },
+          Form: {
+            title: "Прогон {{context}}"
           }
         }
       },

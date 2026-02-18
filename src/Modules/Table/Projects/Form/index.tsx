@@ -4,13 +4,14 @@ import { FormWrapper } from 'Common/Components/FormWrapper';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'Hooks/Redux';
 import { useCallback, useEffect, useState } from 'react';
-import { getProjectDataAction, resetProjectFormAction, submitFormAction } from './Redux/Actions';
+import { getProjectDataAction, resetProjectFormAction, submitFormAction } from './Redux/State/Actions';
 import { ProjectName } from './Fields/ProjectName';
 import { Description } from './Fields/Description';
 import { Client } from './Fields/Client';
 import { Executors } from './Fields/Executors';
 import { Documents } from './Fields/Documents';
 import toast from 'react-hot-toast';
+import { validateForm } from './Redux/Validation/Actions';
 
 /** Страница формы создания/редактирования проекта. */
 export function FormPage (): React.JSX.Element {
@@ -62,8 +63,11 @@ export function FormPage (): React.JSX.Element {
 
     /** Обработчик события отправки. */
     const handleSubmit = (): void => {
-        dispatch(submitFormAction()).unwrap()
-            .then(handleCancel)
+        dispatch(validateForm()).unwrap()
+            .then(() => {
+                dispatch(submitFormAction()).unwrap()
+                    .then(handleCancel)
+            })
     }
 
     return (

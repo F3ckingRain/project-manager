@@ -4,12 +4,12 @@ import type { TReduxState } from "Store";
 
 /** Селектор данных формы тест-кейса. */
 export function casesFormSelector ({ table: { cases } }: TReduxState): Partial<ITestCase> {
-    return cases.form
+    return cases.form.state
 }
 
 /** Селектор значения поля формы по ключу. */
 export function casesFieldSelector <T extends keyof ITestCase>(key: T) {
     return ({ table: { cases } }: TReduxState): Optional<ITestCase[T]> => {
-        return get(cases.form, key)
+        return get(cases.form.state, key)
     }
 }

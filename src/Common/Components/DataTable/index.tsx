@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({ columns, data, onSort, isLoading, act
                 </th>
               ))}
 
-              {isUndefined(actions) ? null : (
+              {isUndefined(actions) || !table.getRowModel().rows?.length ? null : (
                 <th key={'actions'} className={cx(styles.cell, styles.cell__actions, 'px-6 py-4 font-semibold')}>
                     {t('Table.Labels.Actions')}
                 </th>
@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({ columns, data, onSort, isLoading, act
                   </td>
                 ))}
 
-                {isUndefined(actions) ? null : (
+                {isUndefined(actions) || !table.getRowModel().rows?.length ? null : (
                   <td key={'actions'} className={cx(styles.cell, 'px-12 py-8')}>
                       <div className={styles.actionButtons}>
                         <button className={styles.actionButtons__button} onClick={actions.onEdit(row.id)}>

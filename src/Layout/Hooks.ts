@@ -30,12 +30,12 @@ export function useCheckAuthToken (): void {
 
                     dispatch(changeUserInfoAction({ ...userInfo, isAuth: true }));
                 })
-                .catch((error: string) => {
+                .catch((error: unknown) => {
                     localStorage.removeItem('token');
 
                     dispatch(resetUserAction());
 
-                    toast(error);
+                    toast.error(`${error}`);
                 })
         }
     }, [dispatch, navigate, isAuth, token, pathname])

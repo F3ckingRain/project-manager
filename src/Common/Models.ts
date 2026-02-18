@@ -14,6 +14,9 @@ export interface IValidateAction {
     value?: unknown
  };
 
+ /** Тип ошибок поля. */
+ export type TErrors = Record<string, Optional<string[]>>
+
  /** Интерфейс фильтров таблицы. */
  export interface ITableFilter <T extends object> {
     /** Фильтры. */

@@ -1,4 +1,5 @@
-import { map } from "lodash";
+import type { TErrors } from "Common/Models";
+import { get, join, reduce, set } from "lodash";
 import type { ZodType } from "zod";
 
 /** 
@@ -7,10 +8,17 @@ import type { ZodType } from "zod";
  * @param schema Zod-схема.
  * @param value Значение поля.
  */
-export function validateZodSchema (schema: ZodType, value: unknown): Optional<string[]> {
-    const res = schema.safeParse(value)
+export function validateZodSchema (schema: ZodType, value: unknown): Optional<TErrors> {
+    const res = schema.safeParse(value);
 
     if (!res.success) {
-        return map(res.error.issues, ({ message }) => message)
+        return reduce(res.error.issues, (result: TErrors, { path, message }) => {
+            const fieldPath = join(path, '.');
+            const fieldMessages: Optional<string[]> = get(result, fieldPath);
+
+            set(result, fieldPath, [...fieldMessages || [], message]);
+
+            return result
+        }, {})
     } 
 }

@@ -16,6 +16,7 @@ import { isEmpty } from "lodash";
 import { EFormType } from "./Enums";
 import { changeFieldAction } from "../Redux/State/Actions";
 import type { IUserReduxState } from "Redux/User/Reducer";
+import { validateForm } from "../Redux/Validation/Actions";
 
 /** Форма авторизации. */
 export function AuthForm (): React.JSX.Element {
@@ -43,11 +44,9 @@ export function AuthForm (): React.JSX.Element {
 
     /** Обработчик нажатия основной кнопки формы. */
     const handleGeneralButtonClick = (): void => {
-        if (!isEmpty(errors)) {
-            return
-        }
-
-        if (formType === EFormType.SIGN_IN) {
+        dispatch(validateForm()).unwrap()
+            .then(() => {
+                if (formType === EFormType.SIGN_IN) {
             dispatch(signInAction()).unwrap().then(handleGetUserInfo)
             
             return
@@ -65,7 +64,14 @@ export function AuthForm (): React.JSX.Element {
             handleGetUserInfo(userInfo);
 
             dispatch(changeFieldAction({ key: 'formType', value: EFormType.SIGN_IN }))
-        })        
+        })  
+            })
+
+        if (!isEmpty(errors)) {
+            return
+        }
+
+              
     }
 
     /** Обработчик нажатия второстепенной кнопки формы. */

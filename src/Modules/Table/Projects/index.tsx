@@ -80,13 +80,13 @@ function ProjectsComponent (): React.JSX.Element {
 
     /** Функция получения списка проектов. */
     const getProjects = useCallback(async (): Promise<void>=> {
-            setIsLoading(true);
+        setIsLoading(true);
     
-            try {
-                await dispatch(getTableProjectsAction()).unwrap()
-            } finally {
-                setIsLoading(false)
-            }                
+        try {
+            await dispatch(getTableProjectsAction()).unwrap()
+        } finally {
+            setIsLoading(false)
+        }                
     }, [dispatch]);
 
     /** Обработчик создания нового проекта. */

@@ -1,16 +1,20 @@
 import { FieldWrap } from "Common/Components/FieldWrap";
 import { Input } from "Common/Components/Input";
-import { useAppDispatch, useAppSelector } from "Hooks/Redux";
-import { projectFieldSelector } from "../../Redux/Selectors";
-import { changeFormFieldAction } from "../../Redux/Actions";
+import { useAppDispatch, useAppSelector, useAppShallowSelector } from "Hooks/Redux";
+import { projectFieldSelector } from "../../Redux/State/Selectors";
+import { changeFormFieldAction } from "../../Redux/State/Actions";
 import type { IProject } from "Modules/Table/Models";
 import { useTranslation } from "react-i18next";
+import { validationErrorsSelector } from "../../Redux/Validation/Selectors";
+import { validateFieldAction } from "../../Redux/Validation/Actions";
+import { clientSchema } from "./Schema";
 
 /**Поле "Заказчик". */
 export function Client (): React.JSX.Element {
     const fieldKey: keyof IProject = 'client';
     const dispatch = useAppDispatch();
     const value = useAppSelector(projectFieldSelector(fieldKey));
+    const errors = useAppShallowSelector(validationErrorsSelector(fieldKey))
     const { t } = useTranslation();
 
     /**
@@ -20,11 +24,12 @@ export function Client (): React.JSX.Element {
      */
     const handleBlur = (newValue: string): void => {
         dispatch(changeFormFieldAction({ key: fieldKey, value: newValue }));
+        dispatch(validateFieldAction({ key: fieldKey, schema: clientSchema, value: newValue }));
     }
 
     return (
-        <FieldWrap>
+        <FieldWrap errors={errors}>
             <Input value={value} onBlur={handleBlur} label={t(`Table.Projects.Config.${fieldKey}`)} />
         </FieldWrap>
-    )
+    )        
 }

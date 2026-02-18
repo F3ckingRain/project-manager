@@ -24,10 +24,12 @@ export interface ITestCase {
     projectId: string;
     /** Заголовок. */
     title: string;
+    /** Описание тест-кейса. */
+    description: string;
     /** Статус. */
     status: ETestCaseStatus;
     /** Шаги. */
-    steps: string;
+    steps: string[];
     /** Ожидания. */
     expected: string;
     /** Преусловие. */
@@ -40,4 +42,16 @@ export interface ITestCase {
     attachments: string[];
     /** Фактический результат. */
     result: string;
+    /** Флаг авто-теста. */
+    isAuto?: boolean;
+}
+
+/** Интерфейс прогона. */
+export interface ITestRun {
+    /** Идентификатор прогона. */
+    id: string
+    /** Список тест-кейсов. */
+    testCases: ITestCase[];
+    /** Отчёт. */
+    report?: string;
 }

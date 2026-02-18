@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import type { ITestCase } from "../Models";
-import { ETestCaseStatus } from "../Enums";
 import { DataTable } from "Common/Components/DataTable";
 import { useAppDispatch, useAppShallowSelector } from "Hooks/Redux";
 import { casesSelector } from "./Redux/State/Selectors";
@@ -20,24 +19,7 @@ import { CASES_CREATE_PATH, CASES_EDIT_PATH } from "./Form/Consts";
 import { generatePath, Route, Routes, useNavigate } from "react-router-dom";
 import { changePaginationAction } from "./Redux/Filters/Actions";
 import { FormPage } from "./Form";
-
-/** 
- * Функция получения имени класса для статуса.
- * 
- * @param status Статус.
- */
-function getStatusClassName (status: ETestCaseStatus): string {
-  if (status === ETestCaseStatus.DONE) {
-    return 'bg-green-100 text-green-700' 
-  }
-
-  if (status === ETestCaseStatus.IN_PROGRESS) {
-    return 'text-gray-700'
-  }
-
-  return 'bg-amber-100 text-amber-700'
-}
-
+import { getStatusClassName } from "Utils/Classnames";
 
 /** Блок "Тест-кейсы". */
 function CasesComponent (): React.JSX.Element {
